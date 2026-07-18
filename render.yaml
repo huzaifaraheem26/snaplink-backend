@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: snaplink-backend
+    runtime: node
+    rootDir: snaplink-backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /
+    envVars:
+      # Do NOT set PORT — Render injects it automatically. Setting it manually
+      # (e.g. to 5000) makes the app bind to the wrong port and causes a 502.
+      - key: MONGO_URI
+        sync: false        # set the real value in the Render dashboard (secret)
+      - key: BASE_URL
+        value: https://snaplink-backend-25uy.onrender.com
+      - key: FRONTEND_URL
+        sync: false        # optional: set to your Netlify URL to lock down CORS
