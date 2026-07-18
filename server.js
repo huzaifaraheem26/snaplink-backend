@@ -45,10 +45,7 @@ const UrlSchema = new mongoose.Schema({
 const Url = mongoose.model("Url", UrlSchema);
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => {
     console.error("MongoDB Connection Error:", err);
@@ -124,7 +121,7 @@ app.post("/api/shorten", async (req, res) => {
         const shortCode = nanoid(4);
         
         // Base URL (custom domain or Render)
-        const BASE_URL = process.env.BASE_URL || "https://snaplink-backend-1.onrender.com";
+        const BASE_URL = process.env.BASE_URL || "https://snaplink-backend-d87c.onrender.com";
         const shortUrl = `${BASE_URL}/${shortCode}`;
 
         // Generate QR Code
@@ -260,6 +257,6 @@ app.use((req, res) => {
 // ============================================
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on port ${PORT}`);
-    console.log(`Base URL: ${process.env.BASE_URL || "https://snaplink-backend-1.onrender.com"}`);
+    console.log(`Base URL: ${process.env.BASE_URL || "https://snaplink-backend-d87c.onrender.com"}`);
     console.log(`CORS enabled for: ${process.env.FRONTEND_URL || "All origins"}`);
 });
